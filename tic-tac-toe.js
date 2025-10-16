@@ -30,3 +30,26 @@ squares.forEach(square => {
     square.classList.remove('hover');
   });
 });
+
+function checkWinner() {
+  const winningCombos = [
+    [0,1,2], [3,4,5], [6,7,8], // rows
+    [0,3,6], [1,4,7], [2,5,8], // columns
+    [0,4,8], [2,4,6]           // diagonals
+  ];
+  
+  const squares = document.querySelectorAll('#board div');
+  const status = document.getElementById('status');
+
+  for (let combo of winningCombos) {
+    const [a,b,c] = combo;
+    if (squares[a].textContent && 
+        squares[a].textContent === squares[b].textContent &&
+        squares[a].textContent === squares[c].textContent) {
+      status.textContent = `Congratulations! ${squares[a].textContent} is the Winner!`;
+      status.classList.add('you-won');
+      return true;
+    }
+  }
+  return false;
+}
